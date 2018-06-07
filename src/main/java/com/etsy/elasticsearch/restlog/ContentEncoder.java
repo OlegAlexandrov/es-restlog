@@ -28,6 +28,12 @@ public enum ContentEncoder {
     String encode(byte[] data, int offset, int len) {
       return BaseEncoding.base16().encode(data, offset, len);
     }
+  },
+  NULL {
+    @Override
+    String encode(byte[] data, int offset, int len) {
+      return null;
+    }
   };
 
   abstract String encode(byte[] data, int offset, int len);
