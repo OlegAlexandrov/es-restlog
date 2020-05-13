@@ -23,7 +23,7 @@ final class RestLoggerFilter extends RestFilter {
   public RestLoggerFilter(Settings settings) {
     log = ESLoggerFactory.getLogger(settings.get("restlog.category", "restlog"));
     pathFilter = pathFilter(settings.get("restlog.path_regex", ""));
-    contentEncoder = encoder(settings.get("restlog.content_encoding", "null"));
+    contentEncoder = encoder(settings.get("restlog.content_encoding", "json"));
     joiner = Joiner.on(" ").useForNull(settings.get("restlog.null_value", "-"));
   }
 
@@ -37,7 +37,7 @@ final class RestLoggerFilter extends RestFilter {
                 restRequest.getLocalAddress(),
                 restRequest.getRemoteAddress(),
                 restRequest.method(),
-                restRequest.path(),
+                restRequest.uri(),
                 encodeContent(restRequest.content())
             )
         );
